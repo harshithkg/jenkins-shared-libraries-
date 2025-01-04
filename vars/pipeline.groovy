@@ -37,6 +37,10 @@ def wait() {
                 echo 'Waiting for 2 minutes...'
                 sleep(time: 2, unit: 'MINUTES')  // Wait for 2 minutes
 }
+def stop() {
+    echo 'Gracefully stopping the Spring Boot application...'
+    sh 'mvn spring-boot:stop'
+}
 def clean() {
     echo 'Cleaning up...'
     sh 'pkill -f "mvn spring-boot:run" || true'
