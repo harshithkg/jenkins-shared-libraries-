@@ -8,15 +8,11 @@ echo 'Setting up Java 17...'
     sh 'sudo apt install -y maven'
     echo 'Building project with Maven...'
     sh 'mvn clean package'
-      stage('Upload Artifact') {
-            steps {
-                uploadArtifact('target/bus-booking-app-1.0-SNAPSHOT.jar')
-            }
-        }
   echo 'Running Spring Boot application...'
     sh 'nohup mvn spring-boot:run &'
     sleep(time: 15, unit: 'SECONDS')
-
+    echo 'Uploading artifact...'
+    archiveArtifacts artifacts: artifactPath, allowEmptyArchive: true
     def publicIp = sh(script: "curl -s https://checkip.amazonaws.com", returnStdout: true).trim()
     echo "The application is running and accessible at: http://${publicIp}:8080"
    echo 'Validating that the app is running...'
