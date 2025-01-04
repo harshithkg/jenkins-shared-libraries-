@@ -45,19 +45,19 @@ def clean() {
     echo 'Cleaning up...'
     sh 'pkill -f "mvn spring-boot:run" || true'
 }
-def mailing() {
+def notify() {
     post {
-    success {
-        mail to: "harshithkgph27@gmail.com",
-             subject: "Jenkins Job Success",
-             body: "The Jenkins job completed successfully."
+        success {
+            mail to: "harshithkgph27@gmail.com",
+                 subject: "Jenkins Job Success",
+                 body: "The Jenkins job completed successfully."
+        }
+         failure {
+            mail to: "harshithkgph27@gmail.com",
+                 subject: "Jenkins Job Failed",
+                 body: "The Jenkins job failed. Check the logs for details."
+        }
     }
-    failure {
-        mail to: "harshithkgph27@gmail.com",
-             subject: "Jenkins Job Failed",
-             body: "The Jenkins job failed. Check the logs for details."
-    }
-}
 }
 
           
