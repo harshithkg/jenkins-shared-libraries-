@@ -1,4 +1,4 @@
-def checkoutscm() {
+def checkscm() {
     echo 'Checking out code...'
     checkout scm
 }
