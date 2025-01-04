@@ -10,73 +10,10 @@ pipeline {
     }
 
     stages {
-        stage('Checkout Code') {
+        stage('calling shared libraries') {
             steps {
-                checkoutCode()
+                pipeline()
             }
         }
-
-        stage('Set up Java 17') {
-            steps {
-                setupJava()
-            }
-        }
-
-        stage('Set up Maven') {
-            steps {
-                setupMaven()
-            }
-        }
-
-        stage('Build with Maven') {
-            steps {
-                buildProject()
-            }
-        }
-
-        stage('Tag Build') {
-            steps {
-                script {
-                    def buildTag = "build-${env.BUILD_NUMBER}"
-                    tagBuild(buildTag, "Tagging build number ${env.BUILD_NUMBER}")
-                }
-            }
-        }
-
-        stage('Upload Artifact') {
-            steps {
-                uploadArtifact('target/bus-booking-app-1.0-SNAPSHOT.jar')
-            }
-        }
-
-        stage('Run Application') {
-            steps {
-                runApplication()
-            }
-        }
-
-        stage('Validate App is Running') {
-            steps {
-                validateApp()
-            }
-        }
-
-        stage('Clean Workspace') {
-            steps {
-                cleanupWorkspace()
-            }
-        }
-
-        stage('Gracefully Stop Spring Boot App') {
-            steps {
-                stopApplication()
-            }
-        }
-    }
-
-    post {
-        always {
-            cleanup()
-        }
-    }
+}
 }
