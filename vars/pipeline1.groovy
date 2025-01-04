@@ -45,7 +45,7 @@ def clean() {
     echo 'Cleaning up...'
     sh 'pkill -f "mvn spring-boot:run" || true'
 }
-def mail() {
+def mailing() {
     post {
     success {
         mail to: "harshithkgph27@gmail.com",
